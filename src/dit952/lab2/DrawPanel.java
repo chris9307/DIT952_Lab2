@@ -37,7 +37,7 @@ public class DrawPanel extends JPanel{
             // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
             // if you are starting in IntelliJ.
             // Linux users need to modify \ to / in path string
-            BufferedImage volvoImage = ImageIO.read(new File("src\\pics\\Volvo240.jpg"));
+            volvoImage = ImageIO.read(new File("src\\pics\\Volvo240.jpg"));
             saabImage = ImageIO.read(new File("src\\pics\\Saab95.jpg"));
             scaniaImage = ImageIO.read(new File("src\\pics\\Scania.jpg"));
         } catch (IOException ex)
