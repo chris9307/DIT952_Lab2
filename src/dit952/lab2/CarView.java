@@ -120,7 +120,7 @@ public class CarView extends JFrame{
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.liftplatform();
+                carC.liftPlatform();
             }
         });
 

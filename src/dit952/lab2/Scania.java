@@ -46,7 +46,7 @@ public class Scania extends Car{
     @Override
     public void startEngine(){
       if(platform.getAngle()==0){
-          currentSpeed = 0.1;
+          super.startEngine();
       }
       else{
           System.out.println("Can't start engine while platform is elevated");

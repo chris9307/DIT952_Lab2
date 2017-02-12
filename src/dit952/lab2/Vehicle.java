@@ -14,7 +14,7 @@ abstract public class Vehicle {
      protected double enginePower; // Engine power of the car
      
      protected double currentSpeed; // The current speed of the car
-     public enum Direction{UP,RIGHT,DOWN,LEFT};
+     public enum Direction{UP,RIGHT,DOWN,LEFT}
      public Direction dir=Direction.RIGHT;
     public Vehicle(int x, int y)
     {
@@ -91,7 +91,7 @@ abstract public class Vehicle {
     
      /**Sets current speed to 0.1*/
     public void startEngine(){
-      currentSpeed = 0.1;
+      currentSpeed = 1;
     }
 
     /**Sets current speed to 0*/

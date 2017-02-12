@@ -50,19 +50,20 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Car car : cars) {
+                if(checkCollision(car)) {
+                    System.out.println(car.getCurrentSpeed());
+                    car.stopEngine();
+                    car.turnRight();
+                    car.turnRight();
+                    car.startEngine();
+                }
                 car.move();
+                System.out.println(car.currentSpeed);
                 int x = (int) Math.round(car.getXPos());
                 int y = (int) Math.round(car.getYPos());
                 frame.drawPanel.moveit(x,y,cars.indexOf(car));
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
-                if(checkcolision(car)) {
-                    car.stopEngine();
-                    car.startEngine();
-                    car.turnLeft();
-                    car.turnLeft();
-                }
-
             }
         }
     }
@@ -70,8 +71,7 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Car car : cars
-                ) {
+        for (Car car : cars) {
             car.gas(gas);
         }
     }
@@ -83,7 +83,7 @@ public class CarController {
         }
     }
 
-    void liftplatform() {
+    void liftPlatform() {
         for(Car car :cars) {
             if(car.modelName.equals("Scania")) {
                 ((Scania) car).increaseAngle();
@@ -127,13 +127,13 @@ public class CarController {
         }
     }
 
-    boolean checkcolision(Car car) {
+    boolean checkCollision(Car car) {
         if(car.dir == Vehicle.Direction.RIGHT){
             return car.currentSpeed + car.getXPos() > 700;
         } else if(car.dir == Vehicle.Direction.LEFT) {
-            return -car.currentSpeed + car.getXPos() < 0;
+            return -car.currentSpeed + car.getXPos() <= 0;
         }else if(car.dir == Vehicle.Direction.UP) {
-            return -car.currentSpeed + car.getYPos() < 0;
+            return -car.currentSpeed + car.getYPos() <= 0;
         } else {
             return car.currentSpeed + car.getYPos() > 700;
         }
