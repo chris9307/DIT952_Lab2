@@ -10,7 +10,6 @@ public CarTransporter(int x, int y){
         nrDoors = 2;
         color = Color.black;
         enginePower = 125;
-	    turboOn = false;
         modelName="Transporter";
     }
 

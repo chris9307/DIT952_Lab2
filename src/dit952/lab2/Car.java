@@ -12,10 +12,7 @@ import java.awt.Color;
  *Car is intended to be used as a base for implementing different car models.
  */
 public abstract class Car extends Vehicle {
-    
-    
    
-    protected boolean turboOn;
     protected int nrDoors; // Number of doors on the car
     protected Color color; // Color of the car
     protected String modelName; // The car model name
@@ -31,8 +28,6 @@ public abstract class Car extends Vehicle {
       return nrDoors;
     }
 
-
-
     /**Returns the colour of the car*/
     public Color getColor(){
       return color;
@@ -46,8 +41,4 @@ public abstract class Car extends Vehicle {
    public int getSize(){
        return size;
    }
-
-  
-
-   
 }
