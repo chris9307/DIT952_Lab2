@@ -25,7 +25,6 @@ public class CarController {
     ArrayList<Car> cars = new ArrayList<>();
 
     //methods:
-
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
@@ -51,14 +50,12 @@ public class CarController {
         public void actionPerformed(ActionEvent e) {
             for (Car car : cars) {
                 if(checkCollision(car)) {
-                    System.out.println(car.getCurrentSpeed());
                     car.stopEngine();
                     car.turnRight();
                     car.turnRight();
                     car.startEngine();
                 }
                 car.move();
-                System.out.println(car.currentSpeed);
                 int x = (int) Math.round(car.getXPos());
                 int y = (int) Math.round(car.getYPos());
                 frame.drawPanel.moveit(x,y,cars.indexOf(car));
@@ -101,16 +98,16 @@ public class CarController {
 
     void turboOn() {
         for(Car car : cars) {
-            if(car.modelName.equals("Volvo240")){
-                ((Volvo240) car).turboOn=true;
+            if(car.modelName.equals("Saab95")){
+                ((Saab95) car).setTurboOn();
             }
         }
     }
 
     void turboOff() {
         for(Car car : cars) {
-            if(car.modelName.equals("Volvo240")){
-                ((Volvo240) car).turboOn=false;
+            if(car.modelName.equals("Saab95")){
+                ((Saab95) car).setTurboOff();
             }
         }
     }
@@ -128,11 +125,11 @@ public class CarController {
     }
 
     boolean checkCollision(Car car) {
-        if(car.dir == Vehicle.Direction.RIGHT){
+        if(car.dir == Car.Direction.RIGHT){
             return car.currentSpeed + car.getXPos() > 700;
-        } else if(car.dir == Vehicle.Direction.LEFT) {
+        } else if(car.dir == Car.Direction.LEFT) {
             return -car.currentSpeed + car.getXPos() <= 0;
-        }else if(car.dir == Vehicle.Direction.UP) {
+        }else if(car.dir == Car.Direction.UP) {
             return -car.currentSpeed + car.getYPos() <= 0;
         } else {
             return car.currentSpeed + car.getYPos() > 700;

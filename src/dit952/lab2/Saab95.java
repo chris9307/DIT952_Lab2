@@ -3,7 +3,7 @@ package dit952.lab2;
 import java.awt.*;
 
 public class Saab95 extends Car{
-    protected boolean turboOn;
+    private boolean turboOn;
      
     public Saab95(int x,int y){
         super(x,y);
