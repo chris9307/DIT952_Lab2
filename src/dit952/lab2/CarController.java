@@ -1,6 +1,8 @@
 package dit952.lab2;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,127 +14,112 @@ import java.util.ArrayList;
 
 public class CarController {
     // member fields:
+    CarView view;
+    CarModel model;
 
+    public CarController(CarView view,CarModel model) {
+        this.view = view;
+        this.model = model;
+        addActionListnerToButtons();
+    }
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with an listener (see below) that executes the statements
     // each step between delays.
     private Timer timer = new Timer(delay, new TimerListener());
 
-    // The frame that represents this instance View of the MVC pattern
     CarView frame;
-    // A list of cars, modify if needed
-    ArrayList<Car> cars = new ArrayList<>();
 
     //methods:
     public static void main(String[] args) {
         // Instance of this class
-        CarController cc = new CarController();
+        CarModel model = new CarModel();
+        CarView view = new CarView("CarSim 1.0",model);
+        CarController cc = new CarController(view, model);
 
-        cc.cars.add(new Volvo240(0,0));
-        cc.cars.add(new Saab95(0,100));
-        cc.cars.add(new Scania(0,200));
-
-
+        model.cars.add(new Volvo240(0,0));
+        model.cars.add(new Saab95(0,100));
+        model.cars.add(new Scania(0,200));
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
-        //cc.frame.drawPanel.addVehicle(new Volvo240(40,40));
         // Start the timer
         cc.timer.start();
-
     }
+
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Car car : cars) {
-                if(checkCollision(car)) {
-                    car.stopEngine();
-                    car.turnRight();
-                    car.turnRight();
-                    car.startEngine();
-                }
-                car.move();
-                int x = (int) Math.round(car.getXPos());
-                int y = (int) Math.round(car.getYPos());
-                frame.drawPanel.moveit(x,y,cars.indexOf(car));
-                // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
+            model.updateModel();
+            view.updateView();
+        }
+    }
+
+    private void addActionListnerToButtons() {
+        // This actionListener is for the gas button only
+        // TODO: Create more for each component as necessary
+        view.gasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.gas(view.gasAmount);
             }
-        }
-    }
+        });
 
-    // Calls the gas method for each car once
-    void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (Car car : cars) {
-            car.gas(gas);
-        }
-    }
-
-    void brake(int amount) {
-        double brake = ((double) amount) / 100;
-        for (Car car : cars) {
-            car.brake(brake);
-        }
-    }
-
-    void liftPlatform() {
-        for(Car car :cars) {
-            if(car.modelName.equals("Scania")) {
-                ((Scania) car).increaseAngle();
+        view.brakeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                model.brake(view.gasAmount);
             }
-        }
-    }
+        });
 
-    void lowerPlatform() {
-        for(Car car : cars) {
-            if(car.modelName.equals("Scania")) {
-                ((Scania) car).decreaseAngle();
+        view.liftBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.liftPlatform();
             }
-        }
-    }
+        });
 
-    void turboOn() {
-        for(Car car : cars) {
-            if(car.modelName.equals("Saab95")){
-                ((Saab95) car).setTurboOn();
+
+        view.lowerBedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.lowerPlatform();
             }
-        }
-    }
+        });
 
-    void turboOff() {
-        for(Car car : cars) {
-            if(car.modelName.equals("Saab95")){
-                ((Saab95) car).setTurboOff();
+        view.turboOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.turboOn();
             }
-        }
-    }
+        });
 
-    void startButton() {
-        for(Car car : cars) {
-            car.startEngine();
-        }
-    }
+        view.turboOffButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.turboOff();
+            }
+        });
 
-    void stopButton() {
-        for(Car car : cars) {
-            car.stopEngine();
-        }
-    }
+        view.startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.startButton();
+            }
+        });
 
-    boolean checkCollision(Car car) {
-        if(car.dir == Car.Direction.RIGHT){
-            return car.currentSpeed + car.getXPos() > 700;
-        } else if(car.dir == Car.Direction.LEFT) {
-            return -car.currentSpeed + car.getXPos() <= 0;
-        }else if(car.dir == Car.Direction.UP) {
-            return -car.currentSpeed + car.getYPos() <= 0;
-        } else {
-            return car.currentSpeed + car.getYPos() > 700;
-        }
+        view.stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.stopButton();
+            }
+        });
+
+        view.gasSpinner.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                view.gasAmount = (int) ((JSpinner)e.getSource()).getValue();
+            }
+        });
     }
 }

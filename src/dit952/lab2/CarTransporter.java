@@ -30,8 +30,6 @@ public CarTransporter(int x, int y){
         if(platform.getAngle()==0){
             load.unloadLast();   
         }
-            
-        
     }
     
     /**Decreases the angle to 0 if the car is not moving(currentSpeed=0)*/
