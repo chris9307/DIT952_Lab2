@@ -1,6 +1,10 @@
 package dit952.lab2;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 
 /**
  * Created by User on 2017-02-16.
@@ -8,6 +12,22 @@ import java.util.ArrayList;
 public class CarModel {
 
     ArrayList<Car> cars = new ArrayList<>();
+    Timer timer;
+
+    public CarModel(Timer timer) {
+        this.timer = timer;
+        actionPerformed();
+    }
+
+    public void actionPerformed(){
+        timer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateModel();
+            }
+        });
+    }
+
 
     public void updateModel() {
         for (Car car : cars) {
@@ -20,9 +40,6 @@ public class CarModel {
             car.move();
         }
     }
-
-
-        // Calls the gas method for each car once
 
     void gas(int amount) {
         double gas = ((double) amount) / 100;

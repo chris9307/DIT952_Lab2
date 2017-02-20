@@ -20,43 +20,10 @@ public class CarController {
     public CarController(CarView view,CarModel model) {
         this.view = view;
         this.model = model;
-        addActionListnerToButtons();
-    }
-    // The delay (ms) corresponds to 20 updates a sec (hz)
-    private final int delay = 50;
-    // The timer is started with an listener (see below) that executes the statements
-    // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
-
-    CarView frame;
-
-    //methods:
-    public static void main(String[] args) {
-        // Instance of this class
-        CarModel model = new CarModel();
-        CarView view = new CarView("CarSim 1.0",model);
-        CarController cc = new CarController(view, model);
-
-        model.cars.add(new Volvo240(0,0));
-        model.cars.add(new Saab95(0,100));
-        model.cars.add(new Scania(0,200));
-        // Start a new view and send a reference of self
-        // Start the timer
-        cc.timer.start();
+        addActionListenerToButtons();
     }
 
-
-    /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
-    private class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            model.updateModel();
-            view.updateView();
-        }
-    }
-
-    private void addActionListnerToButtons() {
+    private void addActionListenerToButtons() {
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
         view.gasButton.addActionListener(new ActionListener() {

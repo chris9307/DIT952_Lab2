@@ -21,6 +21,7 @@ public class CarView extends JFrame{
 
     // The controller member
     CarModel model;
+    Timer timer;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
@@ -42,9 +43,11 @@ public class CarView extends JFrame{
     JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
-    public CarView(String framename,CarModel model){
+    public CarView(String framename,CarModel model,Timer timer){
         initComponents(framename);
         this.model = model;
+        this.timer = timer;
+        actionPerformed();
     }
 
     // Sets everything in place and fits everything
@@ -104,6 +107,16 @@ public class CarView extends JFrame{
         this.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(){
+        timer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateView();
+            }
+        });
+
     }
 
     public void updateView() {
