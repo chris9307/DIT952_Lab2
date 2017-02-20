@@ -12,7 +12,7 @@ public class Volvo240 extends Car{
         size=1;
         nrDoors = 4;
         color = Color.black;
-        enginePower = 100;
+        enginePower = 125;
         modelName = "Volvo240";
         stopEngine();
     }
@@ -20,8 +20,7 @@ public class Volvo240 extends Car{
 /** returns the resulting speedfactor
  */  
     public double speedFactor(){
-        double turbo=1;
-        return enginePower * 0.01 * trimFactor*turbo;
+        return enginePower * 0.01 * trimFactor;
     }
 
  

@@ -10,7 +10,7 @@ public class Scania extends Car{
         size=10;
         nrDoors = 2;
         color = Color.black;
-        enginePower = 125;
+        enginePower = 10000;
         modelName="Scania";
     }
     @Override

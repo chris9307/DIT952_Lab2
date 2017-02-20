@@ -8,7 +8,8 @@ import javax.swing.*;
 public class Application {
     public static void main(String[] args) {
         // Instance of this class
-        Timer timer = new Timer(50, new TimerListener());
+        final int delay = 50;
+        Timer timer = new Timer(delay, new TimerListener());
         CarModel model = new CarModel(timer);
         CarView view = new CarView("CarSim 1.0", model, timer);
         CarController cc = new CarController(view, model);
