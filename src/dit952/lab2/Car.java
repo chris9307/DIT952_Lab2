@@ -17,6 +17,7 @@ public abstract class Car extends Vehicle {
     protected Color color; // Color of the car
     protected String modelName; // The car model name
     protected int size;
+    public boolean readyToDrive;
     
     public Car(int x,int y){
         super(x,y);
@@ -41,4 +42,8 @@ public abstract class Car extends Vehicle {
    public int getSize(){
        return size;
    }
+
+    public String getModelName() {
+        return modelName;
+    }
 }

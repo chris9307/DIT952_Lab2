@@ -21,7 +21,7 @@ public class DIT952Lab1b {
        Ferry f=new Ferry(4,4);
        Car c=new Saab95(3,3);
        Car c2=new Saab95(4,4);       
-       Car c3=new Volvo240(22,2);       
+       Car c3=new Volvo240(22,2);
        Car c4=new Volvo240(2,1);              
        Car c5=new Volvo240(55,55);
        ct.startEngine();       

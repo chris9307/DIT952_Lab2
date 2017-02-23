@@ -28,7 +28,6 @@ public class CarModel {
         });
     }
 
-
     public void updateModel() {
         for (Car car : cars) {
             if (checkCollision(car)) {
@@ -100,11 +99,11 @@ public class CarModel {
     }
 
     boolean checkCollision(Car car) {
-        if (car.dir == Car.Direction.RIGHT) {
+        if (car.stateDirection instanceof StateRight) {
             return car.currentSpeed + car.getXPos() > 700;
-        } else if (car.dir == Car.Direction.LEFT) {
+        } else if (car.stateDirection instanceof StateLeft) {
             return -car.currentSpeed + car.getXPos() <= 0;
-        } else if (car.dir == Car.Direction.UP) {
+        } else if (car.stateDirection instanceof StateUp) {
             return -car.currentSpeed + car.getYPos() <= 0;
         } else {
             return car.currentSpeed + car.getYPos() > 700;

@@ -15,9 +15,8 @@ public class Application {
         CarController cc = new CarController(view, model);
         timer.start();
 
-        model.cars.add(new Volvo240(0,0));
-        model.cars.add(new Saab95(0,100));
-        model.cars.add(new Scania(0,200));
-
+        model.cars.add(CarFactory.createVolvo240(0,0));
+        model.cars.add(CarFactory.createSaab95(0,100));
+        model.cars.add(CarFactory.createScania(0,200));
     }
 }

@@ -1,9 +1,6 @@
 package dit952.lab2;
 //package dit952.lab1;
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class Volvo240 extends Car{
  public final static double trimFactor = 1.25;

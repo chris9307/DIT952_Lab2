@@ -14,8 +14,7 @@ abstract public class Vehicle {
      protected double enginePower; // Engine power of the car
      
      protected double currentSpeed; // The current speed of the car
-     public enum Direction{UP,RIGHT,DOWN,LEFT}
-     public Direction dir=Direction.RIGHT;
+    IStateDirection stateDirection = new StateRight();
     public Vehicle(int x, int y)
     {
         this.x=x;
@@ -23,59 +22,47 @@ abstract public class Vehicle {
     }
      /**Moves the car towards the right direction*/  
     public void move() {
-      if(dir==Direction.LEFT){
-        x-=currentSpeed;
-      }
-
-      else if(dir==Direction.UP){
-        y+=currentSpeed;  
-      }
-       
-      else if(dir==Direction.RIGHT){
-        x+=currentSpeed; 
-      }
-          
-      else if(dir==Direction.DOWN){
-        y-=currentSpeed;
-      }
+        Point point = stateDirection.move(x,y,currentSpeed);
+        this.x = point.x;
+        this.y = point.y;
     }
 
     /**Changes the direction 90 degrees to the left*/
     public void turnLeft() {
       
-      if(dir==Direction.LEFT){
-        dir=Direction.DOWN;
+      if(stateDirection instanceof StateLeft){
+          stateDirection = new StateDown();
       }
 
-      else if(dir==Direction.UP){
-        dir=Direction.LEFT;  
+      else if(stateDirection instanceof StateUp){
+          stateDirection = new StateLeft();
       }
        
-      else if(dir==Direction.RIGHT){
-        dir=Direction.UP; 
+      else if(stateDirection instanceof StateRight){
+          stateDirection = new StateUp();
       }
           
-      else if(dir==Direction.DOWN){
-        dir=Direction.RIGHT;
+      else if(stateDirection instanceof StateDown){
+          stateDirection = new StateRight();
       }
     }
 
     /**Changes the direction 90 degrees to the right*/
     public void turnRight(){
-      if(dir==Direction.LEFT){
-        dir=Direction.UP;
+      if(stateDirection instanceof StateLeft){
+          stateDirection = new StateUp();
       }
 
-      else if(dir==Direction.UP){
-        dir=Direction.RIGHT;  
+      else if(stateDirection instanceof StateUp){
+          stateDirection = new StateRight();
       }
        
-      else if(dir==Direction.RIGHT){
-        dir=Direction.DOWN; 
+      else if(stateDirection instanceof StateRight){
+          stateDirection = new StateDown();
       }
           
-      else if(dir==Direction.DOWN){
-        dir=Direction.LEFT;
+      else if(stateDirection instanceof StateDown){
+          stateDirection = new StateLeft();
       }
     }
      
