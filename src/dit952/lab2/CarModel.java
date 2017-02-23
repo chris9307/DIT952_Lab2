@@ -98,6 +98,14 @@ public class CarModel {
         }
     }
 
+    public void addCar(){
+        cars.add(CarFactory.createVolvo240(0,cars.get(cars.size()-1).getYPos()+100));
+    }
+
+    public  void removeCar(){
+        cars.remove(cars.size()-1);
+    }
+
     boolean checkCollision(Car car) {
         if (car.stateDirection instanceof StateRight) {
             return car.currentSpeed + car.getXPos() > 700;

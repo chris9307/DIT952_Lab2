@@ -87,5 +87,21 @@ public class CarController {
                 view.gasAmount = (int) ((JSpinner)e.getSource()).getValue();
             }
         });
+
+        view.addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.addCar();
+                view.drawPanel.addImage(model.cars.get(model.cars.size()-1));
+            }
+        });
+
+        view.removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.removeCar();
+                view.drawPanel.removeImage();
+            }
+        });
     }
 }

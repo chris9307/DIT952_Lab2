@@ -27,6 +27,7 @@ abstract public class Vehicle {
         this.y = point.y;
     }
 
+
     /**Changes the direction 90 degrees to the left*/
     public void turnLeft() {
       

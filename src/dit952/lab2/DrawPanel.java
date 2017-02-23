@@ -12,12 +12,14 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel{
 
+
+    CarModel model;
     // Just a single image, TODO: Generalize
     BufferedImage volvoImage;
     BufferedImage saabImage;
     BufferedImage scaniaImage;
     ArrayList<BufferedImage> vehicleImages = new ArrayList<>();
-    Point[] vehiclePoints = new Point[3];
+    Point[] vehiclePoints = new Point[10];
 
     // TODO: Make this genereal for all cars
     void moveit(int x, int y, int index){
@@ -26,10 +28,11 @@ public class DrawPanel extends JPanel{
     }
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y) {
+    public DrawPanel(int x, int y, CarModel model) {
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
+        this.model = model;
         // Print an error message in case file is not found with a try/catch block
         try {
             // You can remove the "src\\pics" part if running outside of IntelliJ and
@@ -47,11 +50,27 @@ public class DrawPanel extends JPanel{
         for(int i = 0; i<vehiclePoints.length;i++) {
             vehiclePoints[i] = new Point(1,1);
         }
-
-        vehicleImages.add(volvoImage);
         vehicleImages.add(saabImage);
         vehicleImages.add(scaniaImage);
+        vehicleImages.add(volvoImage);
 
+
+    }
+
+
+
+    public void addImage(Car car) {
+        if(car instanceof Volvo240) {
+            vehicleImages.add(volvoImage);
+        } else if(car instanceof Saab95) {
+            vehicleImages.add(saabImage);
+        } else {
+            vehicleImages.add(scaniaImage);
+        }
+    }
+
+    public void removeImage(){
+        vehicleImages.remove(vehicleImages.size()-1);
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
@@ -59,7 +78,7 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(int i = 0; i<3;i++) {
+        for(int i = 0; i<vehicleImages.size();i++) {
             g.drawImage(vehicleImages.get(i), vehiclePoints[i].x, vehiclePoints[i].y, null); // see javadoc for more info on the parameters
         }
     }

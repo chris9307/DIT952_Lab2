@@ -11,4 +11,5 @@ public class StateRight implements IStateDirection {
     public Point move(int x, int y, double currentSpeed){
         return new Point(x+(int)currentSpeed,y);
     }
+
 }
