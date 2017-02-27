@@ -1,9 +1,12 @@
 package dit952.lab2;
 
+import dit952.lab2.Model.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 
 
 /**
@@ -99,11 +102,11 @@ public class CarModel {
     }
 
     public void addCar(){
-        if(cars.size()<10) {
-            if(cars.size()<=0){
+        if(cars.size()<=10) {
+            if(cars.size()>0) {
+                cars.add(CarFactory.createVolvo240(0, cars.get(cars.size() - 1).getYPos() + 100));
+            }else{
                 cars.add(CarFactory.createVolvo240(0,0));
-            }else {
-            cars.add(CarFactory.createVolvo240(0, cars.get(Math.abs(cars.size() - 1)).getYPos() + 100));
             }
         }
     }
@@ -116,13 +119,13 @@ public class CarModel {
 
     boolean checkCollision(Car car) {
         if (car.stateDirection instanceof StateRight) {
-            return car.currentSpeed + car.getXPos() > 700;
+            return car.getCurrentSpeed() + car.getXPos() > 700;
         } else if (car.stateDirection instanceof StateLeft) {
-            return -car.currentSpeed + car.getXPos() <= 0;
+            return -car.getCurrentSpeed() + car.getXPos() <= 0;
         } else if (car.stateDirection instanceof StateUp) {
-            return -car.currentSpeed + car.getYPos() <= 0;
+            return -car.getCurrentSpeed() + car.getYPos() <= 0;
         } else {
-            return car.currentSpeed + car.getYPos() > 700;
+            return car.getCurrentSpeed() + car.getYPos() > 700;
         }
     }
 }

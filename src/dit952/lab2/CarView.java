@@ -1,5 +1,7 @@
 package dit952.lab2;
 
+import dit952.lab2.Model.Car;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -124,9 +126,10 @@ public class CarView extends JFrame{
 
     public void updateView() {
         for (Car car : model.cars) {
-            System.out.println(car.modelName);
             drawPanel.moveit(car.getXPos(),car.getYPos(),model.cars.indexOf(car));
+            // repaint() calls the paintComponent method of the panel
             drawPanel.repaint();
         }
+        drawPanel.repaint();
     }
 }

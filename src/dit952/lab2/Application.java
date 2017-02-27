@@ -1,5 +1,8 @@
 package dit952.lab2;
 
+import dit952.lab2.Model.CarFactory;
+import dit952.lab2.Model.TimerListener;
+
 import javax.swing.*;
 
 /**
@@ -13,11 +16,10 @@ public class Application {
         CarModel model = new CarModel(timer);
         CarView view = new CarView("CarSim 1.0", model, timer);
         CarController cc = new CarController(view, model);
-
-
-        model.cars.add(CarFactory.createVolvo240(100,100));
-        model.cars.add(CarFactory.createSaab95(0,0));
-        model.cars.add(CarFactory.createScania(200,200));
         timer.start();
+
+        model.cars.add(CarFactory.createVolvo240(0,0));
+        model.cars.add(CarFactory.createSaab95(0,100));
+        model.cars.add(CarFactory.createScania(0,200));
     }
 }
