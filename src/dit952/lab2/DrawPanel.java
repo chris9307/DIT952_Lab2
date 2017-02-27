@@ -19,13 +19,9 @@ public class DrawPanel extends JPanel{
     BufferedImage saabImage;
     BufferedImage scaniaImage;
     ArrayList<BufferedImage> vehicleImages = new ArrayList<>();
-    Point[] vehiclePoints = new Point[10];
+    //Point[] vehiclePoints = new Point[10];
+    ArrayList<Point> vehiclePoint = new ArrayList<>(10);
 
-    // TODO: Make this genereal for all cars
-    void moveit(int x, int y, int index){
-        vehiclePoints[index].x =x;
-        vehiclePoints[index].y =y;
-    }
 
     // Initializes the panel and reads the images
     public DrawPanel(int x, int y, CarModel model) {
@@ -35,42 +31,58 @@ public class DrawPanel extends JPanel{
         this.model = model;
         // Print an error message in case file is not found with a try/catch block
         try {
-            // You can remove the "src\\pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
-            // if you are starting in IntelliJ.
-            // Linux users need to modify \ to / in path string
-            volvoImage = ImageIO.read(new File("src\\pics\\Volvo240.jpg"));
-            saabImage = ImageIO.read(new File("src\\pics\\Saab95.jpg"));
-            scaniaImage = ImageIO.read(new File("src\\pics\\Scania.jpg"));
+            volvoImage = ImageIO.read(new File("DIT952_Lab2\\src\\pics\\Volvo240.jpg"));
+            saabImage = ImageIO.read(new File("DIT952_Lab2\\src\\pics\\Saab95.jpg"));
+            scaniaImage = ImageIO.read(new File("DIT952_Lab2\\src\\pics\\Scania.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();
         }
+
+        /*
         for(int i = 0; i<vehiclePoints.length;i++) {
             vehiclePoints[i] = new Point(1,1);
         }
-        vehicleImages.add(saabImage);
-        vehicleImages.add(scaniaImage);
-        vehicleImages.add(volvoImage);
 
+        for(int i = 0; i<3;i++) {
+            vehiclePoint.add(new Point(model.cars.get(i).x, model.cars.get(i).y));
+        }
 
+        */
+
+        //vehicleImages.add(saabImage);
+        //vehicleImages.add(scaniaImage);
+        //vehicleImages.add(volvoImage);
+
+        for(Car car : model.cars) {
+            addImage(car);
+            vehiclePoint.add(new Point(car.x,car.y));
+            System.out.println(car.modelName);
+        }
     }
 
-
+    void moveit(int x, int y, int index){
+        //vehiclePoint.get(index).setLocation(new Point(x,y));
+        System.out.println("hello");
+        vehiclePoint.get(index).setLocation(new Point(model.cars.get(index).getXPos(),model.cars.get(index).getYPos()));
+    }
 
     public void addImage(Car car) {
-        if(car instanceof Volvo240) {
-            vehicleImages.add(volvoImage);
-        } else if(car instanceof Saab95) {
-            vehicleImages.add(saabImage);
-        } else {
-            vehicleImages.add(scaniaImage);
+        if(vehicleImages.size()<=10) {
+            if (car instanceof Volvo240) {
+                vehicleImages.add(volvoImage);
+            } else if (car instanceof Saab95) {
+                vehicleImages.add(saabImage);
+            } else {
+                vehicleImages.add(scaniaImage);
+            }
         }
     }
 
     public void removeImage(){
-        vehicleImages.remove(vehicleImages.size()-1);
+        if(vehicleImages.size()>0) {
+            vehicleImages.remove(vehicleImages.size() - 1);
+        }
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
@@ -78,8 +90,8 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(int i = 0; i<vehicleImages.size();i++) {
-            g.drawImage(vehicleImages.get(i), vehiclePoints[i].x, vehiclePoints[i].y, null); // see javadoc for more info on the parameters
+        for(int i = 0; i<vehicleImages.size()-1;i++) {
+            g.drawImage(vehicleImages.get(i), vehiclePoint.get(i).x, vehiclePoint.get(i).y, null); // see javadoc for more info on the parameters
         }
     }
 }

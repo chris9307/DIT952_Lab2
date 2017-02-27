@@ -99,11 +99,19 @@ public class CarModel {
     }
 
     public void addCar(){
-        cars.add(CarFactory.createVolvo240(0,cars.get(cars.size()-1).getYPos()+100));
+        if(cars.size()<10) {
+            if(cars.size()<=0){
+                cars.add(CarFactory.createVolvo240(0,0));
+            }else {
+            cars.add(CarFactory.createVolvo240(0, cars.get(Math.abs(cars.size() - 1)).getYPos() + 100));
+            }
+        }
     }
 
     public  void removeCar(){
-        cars.remove(cars.size()-1);
+        if(cars.size()>0) {
+            cars.remove(cars.size() - 1);
+        }
     }
 
     boolean checkCollision(Car car) {

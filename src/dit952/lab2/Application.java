@@ -13,10 +13,11 @@ public class Application {
         CarModel model = new CarModel(timer);
         CarView view = new CarView("CarSim 1.0", model, timer);
         CarController cc = new CarController(view, model);
-        timer.start();
 
-        model.cars.add(CarFactory.createVolvo240(0,0));
-        model.cars.add(CarFactory.createSaab95(0,100));
-        model.cars.add(CarFactory.createScania(0,200));
+
+        model.cars.add(CarFactory.createVolvo240(100,100));
+        model.cars.add(CarFactory.createSaab95(0,0));
+        model.cars.add(CarFactory.createScania(200,200));
+        timer.start();
     }
 }
